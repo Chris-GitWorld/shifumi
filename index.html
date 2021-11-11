@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roche Papier Ciseaux</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/shifumi.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+      <header class="clearfix">
+        <img src="img/enfants.svg" alt="" title="">
+        <h1>SHIFUMI</h1>
+        <h2>Roche, papier ou ciseaux&thinsp;?</h2>
+
+    </header>
+    <main class="clearfix">
+       
+        <h2>Jouons ensemble&thinsp;!</h2>
+
+        <p><span class="gras">LE JEU&thinsp;:</span> Le joueur choisi un des trois coups possibles. Et l'ordinateur fera un choix aléatoire. 
+            La pierre bat les ciseaux (en les émoussant).
+            Les ciseaux battent la feuille (en la coupant). 
+            La feuille bat la pierre (en l'enveloppant).</p> 
+        <p>Ainsi chaque coup bat un autre coup, il y a match nul si le choix est identique et est battu par le troisième.</p>
+<!-- Premier bouton -->
+<section>
+<img src="img/robot-roche.svg" alt="icône de la roche"><br>
+<button>
+        Roche
+    </button>
+</section>
+<!-- Deuxième bouton -->
+<section class="clearfix">
+<img src="img/robot-papier.svg" alt="icône du papier"><br>
+<button>
+        Papier
+    </button>
+</section>
+<!-- Troisième bouton -->
+<section>
+<img src="img/robot-ciseau.svg" alt="icône du ciseaux"><br>
+<button>
+        Ciseaux
+    </button>
+</section>
+
+</main>
+<aside>
+    <!-- div de résultat -->
+    <br>
+        <div id="result"></div>
+    </aside>
+
+
+<!-- script des boutons -->
+<script>
+    const buttons = document.querySelectorAll("button"); // récupère tous les boutons du document html //
+
+    // pour parcourir les boutons afin d'ajouter des fonctions //
+    for(let i=0; i < buttons.length; i++){
+        buttons[i].addEventListener("click", function (){
+            // pour récupérer l'info du click //
+            const choixUtilisateur = buttons[i].innerHTML;
+            // fonctionnalité du robot pour sélectionner un choix de façon aléatoire //
+            const numeroHasard = Math.floor(Math.random() * buttons.length);
+            // À partir du nombre aléatoire, on défini le bouton correspondant au numéro
+            const choixRobot = buttons[numeroHasard].innerHTML;
+            console.log(`Joueur : ${choixUtilisateur} VS Robot : ${choixRobot}`);
+
+            // LOGIQUE //
+
+            var result = "";
+            if(choixUtilisateur === choixRobot){
+                result = "Jeu nul";
+            }else if (
+                // La Roche bat Ciseaux
+                (choixUtilisateur === "Roche" && choixRobot === "Ciseaux") ||
+                // Le Papier bat Roche
+                (choixUtilisateur === "Papier" && choixRobot === "Roche") ||
+                // Le Ciseau bat Papier
+                (choixUtilisateur === "Ciseaux" && choixRobot === "Papier")
+            ){
+                result = "Tu as gagné le jeu";
+            }else {
+                result = "Tu as perdu le jeu";
+            }
+            // Affichage du résultat
+            document.querySelector("#result").innerHTML = 
+            `
+            Joueur: ${choixUtilisateur} <br>
+            Ordinateur: ${choixRobot} <br>
+            ${result} !
+            `
+;
+        });
+}
+
+</script>
+<!-- fin du script -->
+</div> <!-- fin container -->
+</body>
+</html>
+
